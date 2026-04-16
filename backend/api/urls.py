@@ -1,0 +1,7 @@
+from django.urls import path, include
+from apps.user import views
+
+urlpatterns = [
+  path('', views.getUsers),
+  path('auth/', include('apps.auth.urls'))
+]
