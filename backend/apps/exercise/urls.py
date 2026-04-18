@@ -1,6 +1,7 @@
 from django.urls import path
-from . import models
+from .views import session_view
 
 urlpatterns = [
-  
+  path('session/', session_view),
+  path('session/<uuid:id>/', session_view)
 ]

@@ -12,10 +12,7 @@ def register(request):
   # serialize data
   serializer = UserSerializer(data=request.data)
   
-  start = time.time()
   if (serializer.is_valid()):
-
-    print("Save took:", time.time() - start)
     user = serializer.save()
 
     # generate refresh token
@@ -39,12 +36,10 @@ def login(request):
 
   if serializer.is_valid():
     
-    user = User.objects.filter(id='196f05bd-f991-45ce-97c6-6d39343a7124').first()
+    user = User.objects.filter(email=request.data['email']).first()
 
     # if user exist create token
     if user:
-      print(user.id, user.email)
-
       refresh = RefreshToken.for_user(user)
 
       return Response({
