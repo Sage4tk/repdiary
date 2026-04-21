@@ -4,7 +4,7 @@ from . import models
 class SessionSerializer(serializers.ModelSerializer):
   class Meta:
     model = models.Session
-    fields = ['id','date', 'created_at']
+    fields = ['id','title','date', 'created_at']
     read_only_fields = ['user']
 
   def create(self, validated_data):
