@@ -40,6 +40,12 @@ def login(request):
 
     # if user exist create token
     if user:
+      # CHECK PASSWORD
+      if not user.check_password(serializer.data['password']):
+        return Response({
+          'message': "Invalid credentials"
+        }, status=status.HTTP_401_UNAUTHORIZED)
+
       refresh = RefreshToken.for_user(user)
 
       return Response({
