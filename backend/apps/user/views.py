@@ -23,7 +23,7 @@ def user_views(request):
   # GET USER DATA
   if request.method == "GET":
     serializer = UserSerializer(request.user)
-    return Response(serializer)
+    return Response(serializer.data)
   
   # EDIT USER
   if request.method == "PUT":

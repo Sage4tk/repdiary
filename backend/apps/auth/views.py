@@ -55,7 +55,6 @@ def login(request):
 
     return Response({
       'message': 'User found',
-      'data': str(user)
     })
 
 
