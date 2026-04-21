@@ -19,8 +19,20 @@ def session_view(request, id=None):
     # IF THERE IS AN ID THEN ONLY GET THE ID
     if id:
       try:
-        session = Session.objects.get(id=id)
-        serializer = SessionSerializer(session)
+        # CHECK IF PARAMS INCLUDE EXERCISES
+        include_exercise = request.query_params.get('include')
+
+        # session = Session.objects.get(id=id)
+
+        # if include_exercise == 'exercises':
+        #   session.prefetch_related('exercises').get(id=id)
+
+        if include_exercise == 'exercises':
+          session = Session.objects.prefetch_related('exercises').get(id=id)
+        else:
+          session = Session.objects.get(id=id)
+
+        serializer = SessionSerializer(session, context={'request':request})
         return Response(serializer.data)
       except Session.DoesNotExist:
         return Response({
